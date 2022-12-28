@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t minhbear/react-test -f ./clien/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true minhbear/react-test npm test
+
+after_success:
+  - docker build -t minhbear/multi-client ./client
+  - docker build -t minhbear/multi-nginx ./nginx
+  - docker build -t minhbear/multi-server ./server
+  - docker build -t minhbear/multi-worker ./worker
