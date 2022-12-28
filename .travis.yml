@@ -14,3 +14,8 @@ after_success:
   - docker build -t minhbear/multi-nginx ./nginx
   - docker build -t minhbear/multi-server ./server
   - docker build -t minhbear/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push minhbear/multi-client
+  - docker push minhbear/multi-nginx
+  - docker push minhbear/multi-server
+  - docker push minhbear/multi-worker
